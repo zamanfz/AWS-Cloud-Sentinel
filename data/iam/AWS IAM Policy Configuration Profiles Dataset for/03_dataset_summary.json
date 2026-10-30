@@ -1,0 +1,42 @@
+{
+  "total_records": 1000,
+  "compliant": 700,
+  "misconfigured": 300,
+  "vulnerability_distribution": {
+    "wildcard_resource": 200,
+    "wildcard_action": 83,
+    "no_condition_constraints": 50,
+    "public_principal": 49,
+    "missing_encryption": 48,
+    "privilege_escalation": 47,
+    "notaction_allow": 46,
+    "full_admin": 43,
+    "no_mfa_on_privileged": 41,
+    "cross_account_no_externalid": 39,
+    "passrole_wildcard": 39
+  },
+  "feature_columns": [
+    "entity_type",
+    "environment",
+    "num_statements",
+    "num_allow",
+    "num_deny",
+    "has_wildcard_action",
+    "has_wildcard_resource",
+    "has_full_admin",
+    "has_public_principal",
+    "has_passrole_wildcard",
+    "priv_esc_action_count",
+    "has_mfa_condition",
+    "has_ip_condition",
+    "has_encryption_condition",
+    "num_conditions",
+    "uses_notaction",
+    "total_action_count",
+    "cross_account_trust",
+    "mfa_enabled",
+    "access_key_age_days",
+    "is_prod",
+    "label"
+  ]
+}

@@ -1,0 +1,4631 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+
+
+<meta charset="UTF-8">
+
+
+
+<meta
+
+    name="viewport"
+
+    content="width=device-width, initial-scale=1.0">
+
+
+
+<title>
+
+    CloudSentinel Security Dashboard
+
+</title>
+
+
+
+<style>
+
+
+
+    * {
+
+        box-sizing: border-box;
+
+    }
+
+
+
+    body {
+
+        margin: 0;
+
+        font-family: Inter, Segoe UI, Arial, sans-serif;
+
+        background: #070b14;
+
+        color: #e5e7eb;
+
+    }
+
+
+
+    .layout {
+
+        display: flex;
+
+        min-height: 100vh;
+
+    }
+
+
+
+    .sidebar {
+
+        width: 240px;
+
+        background: #0b1120;
+
+        border-right: 1px solid #1e293b;
+
+        padding: 25px 18px;
+
+        position: fixed;
+
+        top: 0;
+
+        bottom: 0;
+
+        left: 0;
+
+        overflow-y: auto;
+
+    }
+
+
+
+    .logo {
+
+        font-size: 23px;
+
+        font-weight: 700;
+
+        color: #f8fafc;
+
+        margin-bottom: 40px;
+
+    }
+
+
+
+    .logo span {
+
+        color: #38bdf8;
+
+    }
+
+
+
+    .nav-title {
+
+        color: #64748b;
+
+        font-size: 11px;
+
+        text-transform: uppercase;
+
+        letter-spacing: 1px;
+
+        margin: 20px 12px 10px;
+
+    }
+
+
+
+    .nav-item {
+
+        display: block;
+
+        padding: 11px 12px;
+
+        margin: 4px 0;
+
+        border-radius: 7px;
+
+        color: #94a3b8;
+
+        text-decoration: none;
+
+        font-size: 14px;
+
+    }
+
+
+
+    .nav-item.active {
+
+        background: #172033;
+
+        color: #f8fafc;
+
+    }
+
+
+
+    .nav-item:hover {
+
+        background: #172033;
+
+        color: #ffffff;
+
+    }
+
+
+
+    .main {
+
+        margin-left: 240px;
+
+        width: calc(100% - 240px);
+
+    }
+
+
+
+    .topbar {
+
+        height: 76px;
+
+        background: #0b1120;
+
+        border-bottom: 1px solid #1e293b;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        padding: 0 35px;
+
+        position: sticky;
+
+        top: 0;
+
+        z-index: 10;
+
+    }
+
+
+
+    .topbar-title {
+
+        font-size: 18px;
+
+        font-weight: 600;
+
+        color: #f8fafc;
+
+    }
+
+
+
+    .status {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 9px;
+
+        color: #94a3b8;
+
+        font-size: 13px;
+
+    }
+
+
+
+    .status-dot {
+
+        width: 9px;
+
+        height: 9px;
+
+        background: #22c55e;
+
+        border-radius: 50%;
+
+        display: inline-block;
+
+    }
+
+
+
+    .content {
+
+        padding: 32px 38px 50px;
+
+    }
+
+
+
+    .page-header {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        margin-bottom: 25px;
+
+    }
+
+
+
+    .page-header h1 {
+
+        margin: 0 0 7px;
+
+        font-size: 26px;
+
+        color: #f8fafc;
+
+    }
+
+
+
+    .page-header p {
+
+        margin: 0;
+
+        color: #64748b;
+
+        font-size: 13px;
+
+    }
+
+
+
+    .button {
+
+        display: inline-block;
+
+        text-decoration: none;
+
+        padding: 10px 16px;
+
+        border: 1px solid #334155;
+
+        border-radius: 7px;
+
+        color: #93c5fd;
+
+        background: #0f172a;
+
+        font-size: 13px;
+
+    }
+
+
+
+    .button:hover {
+
+        background: #172033;
+
+    }
+
+
+
+    .cards {
+
+        display: grid;
+
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 16px;
+
+        margin-bottom: 18px;
+
+    }
+
+
+
+    .card {
+
+        background: #0f172a;
+
+        border: 1px solid #1e293b;
+
+        border-radius: 10px;
+
+        padding: 22px;
+
+    }
+
+
+
+    .card-label {
+
+        color: #64748b;
+
+        font-size: 11px;
+
+        text-transform: uppercase;
+
+        letter-spacing: 1px;
+
+        margin-bottom: 12px;
+
+    }
+
+
+
+    .card-value {
+
+        font-size: 28px;
+
+        font-weight: 700;
+
+        color: #f8fafc;
+
+    }
+
+
+
+    .risk-value {
+
+        color: #fbbf24;
+
+    }
+
+
+
+    .card-sub {
+
+        margin-top: 7px;
+
+        color: #64748b;
+
+        font-size: 12px;
+
+    }
+
+
+
+    .panel {
+
+        background: #0f172a;
+
+        border: 1px solid #1e293b;
+
+        border-radius: 10px;
+
+        padding: 23px;
+
+        margin-bottom: 20px;
+
+    }
+
+
+
+    .panel h2 {
+
+        margin: 0 0 20px;
+
+        color: #f8fafc;
+
+        font-size: 17px;
+
+    }
+
+
+
+    .inventory {
+
+        display: grid;
+
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 14px;
+
+    }
+
+
+
+    .inventory-item {
+
+        background: #111a2d;
+
+        border: 1px solid #24324a;
+
+        border-radius: 8px;
+
+        padding: 18px;
+
+    }
+
+
+
+    .inventory-label {
+
+        color: #64748b;
+
+        font-size: 12px;
+
+        margin-bottom: 10px;
+
+    }
+
+
+
+    .inventory-value {
+
+        color: #f8fafc;
+
+        font-size: 24px;
+
+        font-weight: 700;
+
+    }
+
+
+
+    .overview-grid {
+
+        display: grid;
+
+        grid-template-columns: 1fr 2fr;
+
+        gap: 20px;
+
+    }
+
+
+
+    .severity-list {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 13px;
+
+    }
+
+
+
+    .severity-row {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        padding: 12px 14px;
+
+        background: #111a2d;
+
+        border-radius: 7px;
+
+    }
+
+
+
+    .severity-name {
+
+        color: #cbd5e1;
+
+        font-size: 13px;
+
+    }
+
+
+
+    .severity-count {
+
+        color: #f8fafc;
+
+        font-weight: 700;
+
+    }
+
+
+
+    .chart-container {
+
+        position: relative;
+
+        width: 100%;
+
+        height: 280px;
+
+    }
+
+
+
+    #riskTrend {
+
+        width: 100%;
+
+        height: 100%;
+
+        display: block;
+
+    }
+
+
+
+    .controls {
+
+        display: flex;
+
+        justify-content: flex-end;
+
+        gap: 10px;
+
+        margin-bottom: 18px;
+
+    }
+
+
+
+    .search {
+
+        width: 250px;
+
+        padding: 10px 12px;
+
+        border: 1px solid #334155;
+
+        background: #0b1120;
+
+        color: #e2e8f0;
+
+        border-radius: 7px;
+
+        outline: none;
+
+    }
+
+
+
+    .search:focus {
+
+        border-color: #3b82f6;
+
+    }
+
+
+
+    .select {
+
+        padding: 10px 12px;
+
+        border: 1px solid #334155;
+
+        background: #0b1120;
+
+        color: #e2e8f0;
+
+        border-radius: 7px;
+
+        outline: none;
+
+    }
+
+
+
+    .table-wrapper {
+
+        overflow-x: auto;
+
+    }
+
+
+
+    table {
+
+        width: 100%;
+
+        border-collapse: collapse;
+
+    }
+
+
+
+    th {
+
+        text-align: left;
+
+        padding: 12px 14px;
+
+        color: #64748b;
+
+        font-size: 11px;
+
+        text-transform: uppercase;
+
+        letter-spacing: 1px;
+
+        border-bottom: 1px solid #1e293b;
+
+    }
+
+
+
+    td {
+
+        padding: 16px 14px;
+
+        color: #cbd5e1;
+
+        font-size: 13px;
+
+        border-bottom: 1px solid #172033;
+
+        vertical-align: top;
+
+    }
+
+
+
+    tr:hover {
+
+        background: #0b1425;
+
+    }
+
+
+
+    td strong {
+
+        color: #dbeafe;
+
+    }
+
+
+
+    .badge {
+
+        display: inline-block;
+
+        padding: 5px 9px;
+
+        border-radius: 5px;
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+    }
+
+
+
+    .badge.critical {
+
+        background: #451a1a;
+
+        color: #fca5a5;
+
+    }
+
+
+
+    .badge.high {
+
+        background: #431407;
+
+        color: #fdba74;
+
+    }
+
+
+
+    .badge.medium {
+
+        background: #422006;
+
+        color: #fde68a;
+
+    }
+
+
+
+    .badge.low {
+
+        background: #052e16;
+
+        color: #86efac;
+
+    }
+
+
+
+    .details-button {
+
+        border: 1px solid #334155;
+
+        background: transparent;
+
+        color: #93c5fd;
+
+        padding: 8px 13px;
+
+        border-radius: 7px;
+
+        cursor: pointer;
+
+        font-size: 13px;
+
+        white-space: nowrap;
+
+    }
+
+
+
+    .details-button:hover {
+
+        background: #172033;
+
+    }
+
+
+
+    .finding-detail-row td {
+
+        padding: 0;
+
+    }
+
+
+
+    .finding-detail-panel {
+
+        margin: 12px 0 20px;
+
+        padding: 26px;
+
+        background: #0b1120;
+
+        border: 1px solid #24324a;
+
+        border-radius: 12px;
+
+    }
+
+
+
+    .finding-detail-header {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        margin-bottom: 18px;
+
+    }
+
+
+
+    .finding-number {
+
+        margin-left: 10px;
+
+        color: #64748b;
+
+        font-size: 14px;
+
+    }
+
+
+
+    .finding-detail-panel h2 {
+
+        margin: 0 0 22px;
+
+        color: #f8fafc;
+
+        font-size: 24px;
+
+    }
+
+
+
+    .detail-grid {
+
+        display: grid;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 14px;
+
+    }
+
+
+
+    .detail-card {
+
+        padding: 18px;
+
+        background: #111a2d;
+
+        border: 1px solid #24324a;
+
+        border-radius: 9px;
+
+    }
+
+
+
+    .detail-label {
+
+        color: #64748b;
+
+        font-size: 11px;
+
+        letter-spacing: 1px;
+
+        margin-bottom: 9px;
+
+    }
+
+
+
+    .detail-value {
+
+        color: #f8fafc;
+
+        font-size: 15px;
+
+        font-weight: 600;
+
+        word-break: break-word;
+
+    }
+
+
+
+    .detail-section {
+
+        margin-top: 22px;
+
+    }
+
+
+
+    .detail-text {
+
+        color: #cbd5e1;
+
+        line-height: 1.7;
+
+        font-size: 14px;
+
+    }
+
+
+
+    .detail-item {
+
+        padding: 14px;
+
+        background: #111a2d;
+
+        border: 1px solid #24324a;
+
+        border-radius: 8px;
+
+    }
+
+
+
+    .detail-item span {
+
+        display: block;
+
+        color: #64748b;
+
+        font-size: 11px;
+
+        margin-bottom: 7px;
+
+    }
+
+
+
+    .detail-item strong {
+
+        color: #e2e8f0;
+
+        font-size: 14px;
+
+        word-break: break-word;
+
+    }
+
+
+
+    .remediation-box {
+
+        padding: 16px;
+
+        background: #111f38;
+
+        border-left: 3px solid #3b82f6;
+
+        border-radius: 7px;
+
+        color: #dbeafe;
+
+        line-height: 1.6;
+
+    }
+
+
+
+    .empty {
+
+        text-align: center;
+
+        padding: 40px;
+
+        color: #64748b;
+
+    }
+
+
+
+    .footer {
+
+        text-align: center;
+
+        padding: 25px;
+
+        color: #475569;
+
+        font-size: 12px;
+
+    }
+
+
+
+    .metadata-grid {
+
+        display: grid;
+
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 14px;
+
+    }
+
+
+
+    .metadata-item {
+
+        padding: 16px;
+
+        background: #111a2d;
+
+        border: 1px solid #24324a;
+
+        border-radius: 8px;
+
+    }
+
+
+
+    .metadata-label {
+
+        color: #64748b;
+
+        font-size: 10px;
+
+        text-transform: uppercase;
+
+        letter-spacing: 1px;
+
+        margin-bottom: 8px;
+
+    }
+
+
+
+    .metadata-value {
+
+        color: #e2e8f0;
+
+        font-size: 13px;
+
+        word-break: break-word;
+
+    }
+
+
+
+    
+.ai-panel {
+    padding: 26px;
+    overflow: hidden;
+    border: 1px solid #263650;
+    background: #0d1526;
+}
+.ai-header{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-bottom:22px;margin-bottom:24px;border-bottom:1px solid #24324a}
+.ai-header h2{margin:3px 0 5px;font-size:19px;letter-spacing:-.2px}
+.ai-eyebrow{color:#818cf8;font-size:10px;font-weight:700;letter-spacing:1.4px}
+.ai-subtitle{margin:0;color:#64748b;font-size:12px}
+.ai-status-card{display:inline-flex;align-items:center;gap:8px;flex-shrink:0;padding:8px 12px;border:1px solid #263650;border-radius:999px;background:#111a2d;color:#cbd5e1;font-size:12px;font-weight:600}
+.ai-status-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.12)}
+.ai-status-dot.off{background:#64748b;box-shadow:none}
+.ai-section{margin-top:24px}.ai-section:first-of-type{margin-top:0}
+.ai-section-heading{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.ai-section-icon{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:1px solid #334155;border-radius:8px;background:#111a2d;color:#818cf8;font-size:10px;font-weight:800}
+.ai-section-heading h3{margin:0;color:#f8fafc;font-size:14px;font-weight:700}.ai-section-heading span{display:block;margin-top:3px;color:#64748b;font-size:11px}
+.ai-summary-card{padding:22px 24px;border:1px solid #263650;border-radius:10px;background:#0b1220}
+.ai-prose{color:#cbd5e1;font-size:13px;line-height:1.6;overflow-wrap:anywhere}.ai-prose h3{margin:0 0 8px;padding-top:2px;color:#f8fafc;font-size:14px;line-height:1.4}.ai-prose h3:not(:first-child){margin-top:22px;padding-top:16px;border-top:1px solid #1e293b}.ai-prose h4{margin:16px 0 7px;color:#e2e8f0;font-size:13px}.ai-prose p{margin:0 0 10px}.ai-prose ul{margin:6px 0 10px;padding-left:19px}.ai-prose li{margin:5px 0;padding-left:3px}.ai-prose strong{color:#f8fafc;font-weight:650}.ai-prose code{padding:2px 5px;border:1px solid #263650;border-radius:4px;background:#111a2d;color:#93c5fd;font-family:Consolas,"Courier New",monospace;font-size:11px}
+.ai-priority-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ai-priority-card{display:grid;grid-template-columns:32px 1fr;gap:12px;min-width:0;padding:16px;border:1px solid #263650;border-radius:10px;background:#0b1220}.ai-priority-number{width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:7px;background:#172033;color:#93c5fd;font-size:11px;font-weight:800}.ai-priority-content{min-width:0;color:#cbd5e1;font-size:12px;line-height:1.55;overflow-wrap:anywhere}.ai-priority-content strong{color:#f8fafc}.ai-priority-content code{padding:2px 5px;border-radius:4px;background:#111a2d;color:#93c5fd;font-family:Consolas,"Courier New",monospace;font-size:10px}
+@media(max-width:1000px){.ai-priority-list{grid-template-columns:1fr}}@media(max-width:750px){.ai-header{align-items:flex-start;flex-direction:column}.ai-panel{padding:20px}.ai-summary-card{padding:17px}}
+
+@media (max-width: 1100px) {
+
+        .cards {
+
+            grid-template-columns: repeat(2, 1fr);
+
+        }
+
+
+
+        .inventory {
+
+            grid-template-columns: repeat(2, 1fr);
+
+        }
+
+
+
+        .overview-grid {
+
+            grid-template-columns: 1fr;
+
+        }
+
+
+
+        .metadata-grid {
+
+            grid-template-columns: repeat(2, 1fr);
+
+        }
+
+    }
+
+
+
+    @media (max-width: 750px) {
+
+        .sidebar {
+
+            display: none;
+
+        }
+
+
+
+        .main {
+
+            margin-left: 0;
+
+            width: 100%;
+
+        }
+
+
+
+        .cards {
+
+            grid-template-columns: 1fr;
+
+        }
+
+
+
+        .inventory {
+
+            grid-template-columns: 1fr;
+
+        }
+
+
+
+        .content {
+
+            padding: 20px;
+
+        }
+
+
+
+        .topbar {
+
+            padding: 0 20px;
+
+        }
+
+
+
+        .page-header {
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+            flex-direction: column;
+
+        }
+
+
+
+        .controls {
+
+            flex-direction: column;
+
+        }
+
+
+
+        .search {
+
+            width: 100%;
+
+        }
+
+
+
+        .detail-grid {
+
+            grid-template-columns: 1fr;
+
+        }
+
+
+
+        .metadata-grid {
+
+            grid-template-columns: 1fr;
+
+        }
+
+    }
+
+    
+
+</style>
+
+
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="layout">
+
+
+
+<aside class="sidebar">
+
+
+
+    <div class="logo">
+
+        Cloud<span>Sentinel</span>
+
+    </div>
+
+
+
+    <div class="nav-title">
+
+        Security
+
+    </div>
+
+
+
+    <a
+
+        class="nav-item active"
+
+        href="#">
+
+        Dashboard
+
+    </a>
+
+
+
+    <a
+
+        class="nav-item"
+
+        href="#findings">
+
+        Findings
+
+    </a>
+
+
+    <a
+        class="nav-item"
+        href="#ai">
+
+        AI Security Analyst
+
+    </a>
+
+
+
+    <a
+
+        class="nav-item"
+
+        href="#inventory">
+
+        AWS Inventory
+
+    </a>
+
+
+
+    <a
+
+        class="nav-item"
+
+        href="#scan-info">
+
+        Scan Information
+
+    </a>
+
+
+
+    <a
+
+        class="nav-item"
+
+        href="#history">
+
+        Scan History
+
+    </a>
+
+
+
+    <div class="nav-title">
+
+        Reports
+
+    </div>
+
+
+
+    <a
+
+        class="nav-item"
+
+        href="cloudsentinel_report.json"
+
+        target="_blank">
+
+        JSON Report
+
+    </a>
+
+
+
+    <a
+
+        class="nav-item"
+
+        href="cloudsentinel_findings.csv"
+
+        target="_blank">
+
+        CSV Report
+
+    </a>
+
+
+
+</aside>
+
+
+
+<main class="main">
+
+
+
+<header class="topbar">
+
+
+
+    <div class="topbar-title">
+
+        Security Dashboard
+
+    </div>
+
+
+
+    <div class="status">
+
+        <span class="status-dot"></span>
+
+        Scanner Active
+
+    </div>
+
+
+
+</header>
+
+
+
+<div class="content">
+
+
+
+<div class="page-header">
+
+
+
+    <div>
+
+
+
+        <h1>
+
+            Security Overview
+
+        </h1>
+
+
+
+        <p>
+
+            AWS misconfiguration assessment
+
+            · Last scan 2026-10-26 19:40:04
+
+        </p>
+
+
+
+    </div>
+
+
+
+    <a
+
+        class="button"
+
+        href="cloudsentinel_report.json"
+
+        target="_blank">
+
+        View JSON
+
+    </a>
+
+
+
+</div>
+
+
+
+<div class="cards">
+
+
+
+    <div class="card">
+
+
+
+        <div class="card-label">
+
+            Risk Level
+
+        </div>
+
+
+
+        <div class="card-value risk-value">
+
+            MEDIUM
+
+        </div>
+
+
+
+        <div class="card-sub">
+
+            Current security posture
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <div class="card">
+
+
+
+        <div class="card-label">
+
+            Risk Score
+
+        </div>
+
+
+
+        <div class="card-value">
+
+            11
+
+        </div>
+
+
+
+        <div class="card-sub">
+
+            Calculated from findings
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <div class="card">
+
+
+
+        <div class="card-label">
+
+            Findings
+
+        </div>
+
+
+
+        <div class="card-value">
+
+            2
+
+        </div>
+
+
+
+        <div class="card-sub">
+
+            Detected issues
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <div class="card">
+
+
+
+        <div class="card-label">
+
+            IAM Users
+
+        </div>
+
+
+
+        <div class="card-value">
+
+            1
+
+        </div>
+
+
+
+        <div class="card-sub">
+
+            Users assessed
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+<div
+    class="panel ai-panel"
+    id="ai">
+
+    <div class="ai-header">
+        <div>
+            <div class="ai-eyebrow">INTELLIGENT SECURITY REVIEW</div>
+            <h2>AI Security Analyst</h2>
+            <p class="ai-subtitle">AI-assisted interpretation of the latest CloudSentinel scan</p>
+        </div>
+        <div class="ai-status-card">
+            <span class="ai-status-dot off"></span>
+            <span>Disabled</span>
+        </div>
+    </div>
+
+    <div class="ai-section">
+        <div class="ai-section-heading">
+            <div class="ai-section-icon">01</div>
+            <div><h3>Executive Security Summary</h3><span>What the scan means at a glance</span></div>
+        </div>
+        <div class="ai-summary-card">
+            <p>No AI executive summary is available.</p>
+        </div>
+    </div>
+
+    
+
+</div>
+
+
+<div
+
+    class="panel"
+
+    id="scan-info">
+
+
+
+    <h2>
+
+        Scan Information
+
+    </h2>
+
+
+
+    <div class="metadata-grid">
+
+
+
+        <div class="metadata-item">
+
+
+
+            <div class="metadata-label">
+
+                Scanner
+
+            </div>
+
+
+
+            <div class="metadata-value">
+
+                CloudSentinel
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="metadata-item">
+
+
+
+            <div class="metadata-label">
+
+                Version
+
+            </div>
+
+
+
+            <div class="metadata-value">
+
+                1.0.0
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="metadata-item">
+
+
+
+            <div class="metadata-label">
+
+                AWS Region
+
+            </div>
+
+
+
+            <div class="metadata-value">
+
+                ap-south-1
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="metadata-item">
+
+
+
+            <div class="metadata-label">
+
+                AWS Account
+
+            </div>
+
+
+
+            <div class="metadata-value">
+
+                048715026943
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+<div class="panel" id="iam-ml">
+    <div class="ai-header">
+        <div>
+            <div class="ai-eyebrow">MACHINE LEARNING</div>
+            <h2>IAM Misconfiguration Detection</h2>
+            <p class="ai-subtitle">
+                Supervised classification using the trained Random Forest model
+            </p>
+        </div>
+        <div class="ai-status-card">
+            <span class="ai-status-dot "></span>
+            <span>Model Loaded</span>
+        </div>
+    </div>
+
+    <div class="inventory">
+        <div class="inventory-item">
+            <div class="inventory-label">Algorithm</div>
+            <div class="inventory-value" style="font-size:18px">
+                Random Forest
+            </div>
+        </div>
+        <div class="inventory-item">
+            <div class="inventory-label">Test Accuracy</div>
+            <div class="inventory-value">92%</div>
+        </div>
+        <div class="inventory-item">
+            <div class="inventory-label">Test Precision</div>
+            <div class="inventory-value">87.93%</div>
+        </div>
+        <div class="inventory-item">
+            <div class="inventory-label">Test Recall</div>
+            <div class="inventory-value">85%</div>
+        </div>
+    </div>
+
+    <div class="table-wrapper" style="margin-top:22px">
+        <table>
+            <thead>
+                <tr>
+                    <th>IAM Resource</th>
+                    <th>Resource Type</th>
+                    <th>Prediction</th>
+                    <th>Model Probability</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+        <tr>
+            <td>cloudsentinel-scanner</td>
+            <td>IAM_USER</td>
+            <td><span class="badge high">MISCONFIGURED</span></td>
+            <td>53.43%</td>
+        </tr>
+        
+            </tbody>
+        </table>
+    </div>
+
+    <p class="ai-subtitle" style="margin-top:16px">
+        Evaluation metrics are from the dataset test split. Live predictions
+        are model estimates and do not replace deterministic security rules.
+    </p>
+</div>
+
+<a class="nav-item" href="#iam-ml">IAM ML Model</a>
+
+
+
+<div
+
+    class="panel"
+
+    id="inventory">
+
+
+
+    <h2>
+
+        AWS Inventory
+
+    </h2>
+
+
+
+    <div class="inventory">
+
+
+
+        <div class="inventory-item">
+
+
+
+            <div class="inventory-label">
+
+                S3 Buckets
+
+            </div>
+
+
+
+            <div class="inventory-value">
+
+                0
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="inventory-item">
+
+
+
+            <div class="inventory-label">
+
+                EC2 Instances
+
+            </div>
+
+
+
+            <div class="inventory-value">
+
+                0
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="inventory-item">
+
+
+
+            <div class="inventory-label">
+
+                Security Groups
+
+            </div>
+
+
+
+            <div class="inventory-value">
+
+                1
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="inventory-item">
+
+
+
+            <div class="inventory-label">
+
+                IAM Users
+
+            </div>
+
+
+
+            <div class="inventory-value">
+
+                1
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+<div class="overview-grid">
+
+
+
+<div class="panel">
+
+
+
+    <h2>
+
+        Severity Distribution
+
+    </h2>
+
+
+
+    <div class="severity-list">
+
+
+
+        <div class="severity-row">
+
+
+
+            <span class="severity-name">
+
+                Critical
+
+            </span>
+
+
+
+            <span class="badge critical">
+
+                0
+
+            </span>
+
+
+
+        </div>
+
+
+
+        <div class="severity-row">
+
+
+
+            <span class="severity-name">
+
+                High
+
+            </span>
+
+
+
+            <span class="badge high">
+
+                1
+
+            </span>
+
+
+
+        </div>
+
+
+
+        <div class="severity-row">
+
+
+
+            <span class="severity-name">
+
+                Medium
+
+            </span>
+
+
+
+            <span class="badge medium">
+
+                1
+
+            </span>
+
+
+
+        </div>
+
+
+
+        <div class="severity-row">
+
+
+
+            <span class="severity-name">
+
+                Low
+
+            </span>
+
+
+
+            <span class="badge low">
+
+                0
+
+            </span>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+<div class="panel">
+
+
+
+    <h2>
+
+        Risk Trend
+
+    </h2>
+
+
+
+    <div class="chart-container">
+
+
+
+        <canvas id="riskTrend"></canvas>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+<div
+
+    class="panel"
+
+    id="findings">
+
+
+
+    <div
+
+        style="
+
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+        gap:15px;
+
+        flex-wrap:wrap;
+
+        ">
+
+
+
+        <h2>
+
+            Security Findings
+
+        </h2>
+
+
+
+        <div class="controls">
+
+
+
+            <input
+
+                id="search"
+
+                class="search"
+
+                type="text"
+
+                placeholder="Search findings..."
+
+                oninput="filterFindings()">
+
+
+
+            <select
+
+                id="severityFilter"
+
+                class="select"
+
+                onchange="filterFindings()">
+
+
+
+                <option value="ALL">
+
+                    All Severities
+
+                </option>
+
+
+
+                <option value="CRITICAL">
+
+                    Critical
+
+                </option>
+
+
+
+                <option value="HIGH">
+
+                    High
+
+                </option>
+
+
+
+                <option value="MEDIUM">
+
+                    Medium
+
+                </option>
+
+
+
+                <option value="LOW">
+
+                    Low
+
+                </option>
+
+
+
+            </select>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <div class="table-wrapper">
+
+
+
+        <table>
+
+
+
+            <thead>
+
+
+
+                <tr>
+
+
+
+                    <th>
+
+                        Severity
+
+                    </th>
+
+
+
+                    <th>
+
+                        Rule
+
+                    </th>
+
+
+
+                    <th>
+
+                        Resource
+
+                    </th>
+
+
+
+                    <th>
+
+                        Description
+
+                    </th>
+
+
+
+                    <th>
+
+                        Details
+
+                    </th>
+
+
+
+                </tr>
+
+
+
+            </thead>
+
+
+
+            <tbody id="findingsTable">
+
+
+
+                
+
+        <tr data-severity="HIGH">
+
+            <td>
+
+                <span class="badge high">
+
+                    HIGH
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                <strong>IAM_USER_MFA_DISABLED</strong>
+
+            </td>
+
+
+
+            <td>
+
+                cloudsentinel-scanner
+
+            </td>
+
+
+
+            <td>
+
+                IAM user &#x27;cloudsentinel-scanner&#x27; does not have MFA enabled.
+
+            </td>
+
+
+
+            <td>
+
+                <button
+
+                    class="details-button"
+
+                    onclick="showFinding(1)">
+
+                    View Details
+
+                </button>
+
+            </td>
+
+        </tr>
+
+
+
+        <tr
+
+            id="finding-details-1"
+
+            class="finding-detail-row"
+
+            style="display:none;"
+
+            data-severity="HIGH">
+
+
+
+            <td colspan="5">
+
+
+
+                <div class="finding-detail-panel">
+
+
+
+                    <div class="finding-detail-header">
+
+
+
+                        <div>
+
+                            <span class="badge high">
+
+                                HIGH
+
+                            </span>
+
+
+
+                            <span class="finding-number">
+
+                                Finding #1
+
+                            </span>
+
+                        </div>
+
+
+
+                        <button
+
+                            class="details-button"
+
+                            onclick="hideFinding(1)">
+
+                            Close
+
+                        </button>
+
+
+
+                    </div>
+
+
+
+                    <h2>
+
+                        IAM_USER_MFA_DISABLED
+
+                    </h2>
+
+
+
+                    <div class="detail-grid">
+
+
+
+                        <div class="detail-card">
+
+                            <div class="detail-label">
+
+                                RESOURCE
+
+                            </div>
+
+
+
+                            <div class="detail-value">
+
+                                cloudsentinel-scanner
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="detail-card">
+
+                            <div class="detail-label">
+
+                                RESOURCE TYPE
+
+                            </div>
+
+
+
+                            <div class="detail-value">
+
+                                IAM User
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="detail-card">
+
+                            <div class="detail-label">
+
+                                RESOURCE ID
+
+                            </div>
+
+
+
+                            <div class="detail-value">
+
+                                cloudsentinel-scanner
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="detail-card">
+
+                            <div class="detail-label">
+
+                                CATEGORY
+
+                            </div>
+
+
+
+                            <div class="detail-value">
+
+                                Identity &amp; Access
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+                    <div class="detail-section">
+
+                        <div class="detail-label">
+
+                            DESCRIPTION
+
+                        </div>
+
+
+
+                        <div class="detail-text">
+
+                            IAM user &#x27;cloudsentinel-scanner&#x27; does not have MFA enabled.
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="detail-section">
+
+                        <div class="detail-label">
+
+                            WHY IT MATTERS
+
+                        </div>
+
+
+
+                        <div class="detail-text">
+
+                            MFA provides an additional authentication factor and reduces the risk of unauthorized access if credentials are compromised.
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="detail-section">
+
+                        <div class="detail-label">
+
+                            CURRENT CONFIGURATION
+
+                        </div>
+
+
+
+                        <div class="detail-text">
+
+                            MFA is not enabled for this IAM user.
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="detail-section">
+
+                        <div class="detail-label">
+
+                            RESOURCE DETAILS
+
+                        </div>
+
+
+
+                        <div class="detail-grid">
+
+                            
+
+            <div class="detail-item">
+
+                <span>Additional Resource Metadata</span>
+
+                <strong>None</strong>
+
+            </div>
+
+            
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="detail-section">
+
+                        <div class="detail-label">
+
+                            RECOMMENDED REMEDIATION
+
+                        </div>
+
+
+
+                        <div class="remediation-box">
+
+                            Enable MFA for the IAM user.
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr data-severity="MEDIUM">
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                <strong>IAM_PASSWORD_POLICY_MISSING</strong>
+
+            </td>
+
+
+
+            <td>
+
+                AWS Account
+
+            </td>
+
+
+
+            <td>
+
+                No custom IAM account password policy is configured.
+
+            </td>
+
+
+
+            <td>
+
+                <button
+
+                    class="details-button"
+
+                    onclick="showFinding(2)">
+
+                    View Details
+
+                </button>
+
+            </td>
+
+        </tr>
+
+
+
+        <tr
+
+            id="finding-details-2"
+
+            class="finding-detail-row"
+
+            style="display:none;"
+
+            data-severity="MEDIUM">
+
+
+
+            <td colspan="5">
+
+
+
+                <div class="finding-detail-panel">
+
+
+
+                    <div class="finding-detail-header">
+
+
+
+                        <div>
+
+                            <span class="badge medium">
+
+                                MEDIUM
+
+                            </span>
+
+
+
+                            <span class="finding-number">
+
+                                Finding #2
+
+                            </span>
+
+                        </div>
+
+
+
+                        <button
+
+                            class="details-button"
+
+                            onclick="hideFinding(2)">
+
+                            Close
+
+                        </button>
+
+
+
+                    </div>
+
+
+
+                    <h2>
+
+                        IAM_PASSWORD_POLICY_MISSING
+
+                    </h2>
+
+
+
+                    <div class="detail-grid">
+
+
+
+                        <div class="detail-card">
+
+                            <div class="detail-label">
+
+                                RESOURCE
+
+                            </div>
+
+
+
+                            <div class="detail-value">
+
+                                AWS Account
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="detail-card">
+
+                            <div class="detail-label">
+
+                                RESOURCE TYPE
+
+                            </div>
+
+
+
+                            <div class="detail-value">
+
+                                IAM Account
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="detail-card">
+
+                            <div class="detail-label">
+
+                                RESOURCE ID
+
+                            </div>
+
+
+
+                            <div class="detail-value">
+
+                                AWS Account
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="detail-card">
+
+                            <div class="detail-label">
+
+                                CATEGORY
+
+                            </div>
+
+
+
+                            <div class="detail-value">
+
+                                Identity &amp; Access
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+                    <div class="detail-section">
+
+                        <div class="detail-label">
+
+                            DESCRIPTION
+
+                        </div>
+
+
+
+                        <div class="detail-text">
+
+                            No custom IAM account password policy is configured.
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="detail-section">
+
+                        <div class="detail-label">
+
+                            WHY IT MATTERS
+
+                        </div>
+
+
+
+                        <div class="detail-text">
+
+                            Without an explicit password policy, password requirements are not centrally defined for IAM users.
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="detail-section">
+
+                        <div class="detail-label">
+
+                            CURRENT CONFIGURATION
+
+                        </div>
+
+
+
+                        <div class="detail-text">
+
+                            No custom IAM account password policy is configured.
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="detail-section">
+
+                        <div class="detail-label">
+
+                            RESOURCE DETAILS
+
+                        </div>
+
+
+
+                        <div class="detail-grid">
+
+                            
+
+            <div class="detail-item">
+
+                <span>Additional Resource Metadata</span>
+
+                <strong>None</strong>
+
+            </div>
+
+            
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="detail-section">
+
+                        <div class="detail-label">
+
+                            RECOMMENDED REMEDIATION
+
+                        </div>
+
+
+
+                        <div class="remediation-box">
+
+                            Configure an IAM password policy with appropriate complexity and rotation requirements.
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+            </td>
+
+        </tr>
+
+        
+
+
+
+            </tbody>
+
+
+
+        </table>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+<div
+
+    class="panel"
+
+    id="history">
+
+
+
+    <div
+
+        style="
+
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+        margin-bottom:20px;
+
+        ">
+
+
+
+        <h2>
+
+            Scan History
+
+        </h2>
+
+
+
+        <span
+
+            style="
+
+            color:#64748b;
+
+            font-size:12px;
+
+            ">
+
+            Last 20 scans
+
+        </span>
+
+
+
+    </div>
+
+
+
+    <div class="table-wrapper">
+
+
+
+        <table>
+
+
+
+            <thead>
+
+
+
+                <tr>
+
+
+
+                    <th>
+
+                        Scan Time
+
+                    </th>
+
+
+
+                    <th>
+
+                        Risk Level
+
+                    </th>
+
+
+
+                    <th>
+
+                        Risk Score
+
+                    </th>
+
+
+
+                    <th>
+
+                        Findings
+
+                    </th>
+
+
+
+                </tr>
+
+
+
+            </thead>
+
+
+
+            <tbody>
+
+
+
+                
+
+        <tr>
+
+            <td>
+
+                2026-10-26 19:40:04
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 19:38:10
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 19:19:57
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 19:16:59
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 19:13:23
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 19:12:01
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 19:09:52
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 19:07:44
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 19:03:16
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 18:57:08
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 18:54:21
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 18:50:43
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 18:48:16
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 17:49:15
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-26 17:42:58
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-08 22:33:01
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-08 22:21:01
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-08 22:17:16
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-08 22:10:38
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+
+                2026-10-08 22:06:46
+
+            </td>
+
+
+
+            <td>
+
+                <span class="badge medium">
+
+                    MEDIUM
+
+                </span>
+
+            </td>
+
+
+
+            <td>
+
+                11
+
+            </td>
+
+
+
+            <td>
+
+                2
+
+            </td>
+
+        </tr>
+
+        
+
+
+
+            </tbody>
+
+
+
+        </table>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+<div class="footer">
+
+
+
+    CloudSentinel AWS Security Scanner
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+</main>
+
+
+
+</div>
+
+
+
+<script>
+
+
+
+const TREND_DATA = [{"timestamp": "2026-10-08 22:06:46", "score": 11, "findings": 2}, {"timestamp": "2026-10-08 22:10:38", "score": 11, "findings": 2}, {"timestamp": "2026-10-08 22:17:16", "score": 11, "findings": 2}, {"timestamp": "2026-10-08 22:21:01", "score": 11, "findings": 2}, {"timestamp": "2026-10-08 22:33:01", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 17:42:58", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 17:49:15", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 18:48:16", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 18:50:43", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 18:54:21", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 18:57:08", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 19:03:16", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 19:07:44", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 19:09:52", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 19:12:01", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 19:13:23", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 19:16:59", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 19:19:57", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 19:38:10", "score": 11, "findings": 2}, {"timestamp": "2026-10-26 19:40:04", "score": 11, "findings": 2}];
+
+
+
+
+
+    function filterFindings() {
+
+        const searchElement =
+
+            document.getElementById("search");
+
+
+
+        const severityElement =
+
+            document.getElementById("severityFilter");
+
+
+
+        const search =
+
+            searchElement.value.toLowerCase();
+
+
+
+        const severity =
+
+            severityElement.value;
+
+
+
+        const rows =
+
+            document.querySelectorAll(
+
+                "#findingsTable tr"
+
+            );
+
+
+
+        rows.forEach(function(row) {
+
+            const text =
+
+                row.innerText.toLowerCase();
+
+
+
+            const rowSeverity =
+
+                row.getAttribute(
+
+                    "data-severity"
+
+                );
+
+
+
+            const matchesSearch =
+
+                text.includes(search);
+
+
+
+            const matchesSeverity =
+
+                severity === "ALL" ||
+
+                rowSeverity === severity;
+
+
+
+            if (
+
+                matchesSearch &&
+
+                matchesSeverity
+
+            ) {
+
+                row.style.display = "";
+
+            } else {
+
+                row.style.display = "none";
+
+            }
+
+        });
+
+    }
+
+
+
+    function showFinding(index) {
+
+        const row =
+
+            document.getElementById(
+
+                "finding-details-" + index
+
+            );
+
+
+
+        if (row) {
+
+            row.style.display = "table-row";
+
+
+
+            setTimeout(function() {
+
+                row.scrollIntoView({
+
+                    behavior: "smooth",
+
+                    block: "center"
+
+                });
+
+            }, 50);
+
+        }
+
+    }
+
+
+
+    function hideFinding(index) {
+
+        const row =
+
+            document.getElementById(
+
+                "finding-details-" + index
+
+            );
+
+
+
+        if (row) {
+
+            row.style.display = "none";
+
+        }
+
+    }
+
+
+
+    function drawRiskTrend() {
+
+        const canvas =
+
+            document.getElementById(
+
+                "riskTrend"
+
+            );
+
+
+
+        if (!canvas) {
+
+            return;
+
+        }
+
+
+
+        const container =
+
+            canvas.parentElement;
+
+
+
+        const width =
+
+            container.clientWidth;
+
+
+
+        const height =
+
+            container.clientHeight;
+
+
+
+        const ratio =
+
+            window.devicePixelRatio || 1;
+
+
+
+        canvas.width =
+
+            width * ratio;
+
+
+
+        canvas.height =
+
+            height * ratio;
+
+
+
+        canvas.style.width =
+
+            width + "px";
+
+
+
+        canvas.style.height =
+
+            height + "px";
+
+
+
+        const ctx =
+
+            canvas.getContext("2d");
+
+
+
+        ctx.scale(
+
+            ratio,
+
+            ratio
+
+        );
+
+
+
+        const data =
+
+            TREND_DATA;
+
+
+
+        ctx.clearRect(
+
+            0,
+
+            0,
+
+            width,
+
+            height
+
+        );
+
+
+
+        if (!data.length) {
+
+            ctx.fillStyle =
+
+                "#64748b";
+
+
+
+            ctx.font =
+
+                "14px Segoe UI";
+
+
+
+            ctx.fillText(
+
+                "No scan history available",
+
+                20,
+
+                30
+
+            );
+
+
+
+            return;
+
+        }
+
+
+
+        const paddingLeft = 48;
+
+        const paddingRight = 20;
+
+        const paddingTop = 20;
+
+        const paddingBottom = 45;
+
+
+
+        const chartWidth =
+
+            width -
+
+            paddingLeft -
+
+            paddingRight;
+
+
+
+        const chartHeight =
+
+            height -
+
+            paddingTop -
+
+            paddingBottom;
+
+
+
+        const scores =
+
+            data.map(function(item) {
+
+                return Number(
+
+                    item.score || 0
+
+                );
+
+            });
+
+
+
+        const maxScore =
+
+            Math.max(
+
+                20,
+
+                Math.max.apply(
+
+                    null,
+
+                    scores
+
+                )
+
+            );
+
+
+
+        ctx.strokeStyle =
+
+            "#1e293b";
+
+
+
+        ctx.lineWidth = 1;
+
+
+
+        for (
+
+            let i = 0;
+
+            i <= 4;
+
+            i++
+
+        ) {
+
+            const y =
+
+                paddingTop +
+
+                (
+
+                    chartHeight *
+
+                    i /
+
+                    4
+
+                );
+
+
+
+            ctx.beginPath();
+
+
+
+            ctx.moveTo(
+
+                paddingLeft,
+
+                y
+
+            );
+
+
+
+            ctx.lineTo(
+
+                width - paddingRight,
+
+                y
+
+            );
+
+
+
+            ctx.stroke();
+
+
+
+            const value =
+
+                Math.round(
+
+                    maxScore -
+
+                    (
+
+                        maxScore *
+
+                        i /
+
+                        4
+
+                    )
+
+                );
+
+
+
+            ctx.fillStyle =
+
+                "#64748b";
+
+
+
+            ctx.font =
+
+                "11px Segoe UI";
+
+
+
+            ctx.fillText(
+
+                String(value),
+
+                8,
+
+                y + 4
+
+            );
+
+        }
+
+
+
+        const points =
+
+            data.map(
+
+                function(item, index) {
+
+                    const x =
+
+                        data.length === 1
+
+                        ? paddingLeft +
+
+                          chartWidth / 2
+
+                        : paddingLeft +
+
+                          (
+
+                            chartWidth *
+
+                            index /
+
+                            (
+
+                                data.length -
+
+                                1
+
+                            )
+
+                          );
+
+
+
+                    const score =
+
+                        Number(
+
+                            item.score || 0
+
+                        );
+
+
+
+                    const y =
+
+                        paddingTop +
+
+                        chartHeight -
+
+                        (
+
+                            score /
+
+                            maxScore *
+
+                            chartHeight
+
+                        );
+
+
+
+                    return {
+
+                        x: x,
+
+                        y: y,
+
+                        score: score
+
+                    };
+
+                }
+
+            );
+
+
+
+        ctx.strokeStyle =
+
+            "#38bdf8";
+
+
+
+        ctx.lineWidth = 2;
+
+
+
+        ctx.beginPath();
+
+
+
+        points.forEach(
+
+            function(point, index) {
+
+                if (index === 0) {
+
+                    ctx.moveTo(
+
+                        point.x,
+
+                        point.y
+
+                    );
+
+                } else {
+
+                    ctx.lineTo(
+
+                        point.x,
+
+                        point.y
+
+                    );
+
+                }
+
+            }
+
+        );
+
+
+
+        ctx.stroke();
+
+
+
+        points.forEach(
+
+            function(point, index) {
+
+                ctx.fillStyle =
+
+                    "#38bdf8";
+
+
+
+                ctx.beginPath();
+
+
+
+                ctx.arc(
+
+                    point.x,
+
+                    point.y,
+
+                    4,
+
+                    0,
+
+                    Math.PI * 2
+
+                );
+
+
+
+                ctx.fill();
+
+
+
+                ctx.fillStyle =
+
+                    "#cbd5e1";
+
+
+
+                ctx.font =
+
+                    "11px Segoe UI";
+
+
+
+                ctx.textAlign =
+
+                    "center";
+
+
+
+                ctx.fillText(
+
+                    String(point.score),
+
+                    point.x,
+
+                    point.y - 10
+
+                );
+
+
+
+                if (
+
+                    data.length <= 8 ||
+
+                    index === 0 ||
+
+                    index === data.length - 1
+
+                ) {
+
+                    ctx.fillStyle =
+
+                        "#64748b";
+
+
+
+                    ctx.fillText(
+
+                        data[index].timestamp,
+
+                        point.x,
+
+                        height - 12
+
+                    );
+
+                }
+
+            }
+
+        );
+
+
+
+        ctx.textAlign = "left";
+
+    }
+
+
+
+    window.addEventListener(
+
+        "resize",
+
+        drawRiskTrend
+
+    );
+
+
+
+    document.addEventListener(
+
+        "DOMContentLoaded",
+
+        drawRiskTrend
+
+    );
+
+    
+
+
+
+</script>
+
+
+
+</body>
+
+
+
+</html>
+

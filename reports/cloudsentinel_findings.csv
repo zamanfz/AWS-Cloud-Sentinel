@@ -1,0 +1,3 @@
+severity,rule,resource,group_id,group_name,instance_id,port,message,remediation
+HIGH,IAM_USER_MFA_DISABLED,cloudsentinel-scanner,,,,,IAM user 'cloudsentinel-scanner' does not have MFA enabled.,Enable MFA for the IAM user.
+MEDIUM,IAM_PASSWORD_POLICY_MISSING,AWS Account,,,,,No custom IAM account password policy is configured.,Configure an IAM password policy with appropriate complexity and rotation requirements.

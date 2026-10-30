@@ -1,0 +1,99 @@
+{
+    "scanner": "CloudSentinel",
+    "scanner_version": "1.0.0",
+    "scan_metadata": {
+        "scanner_name": "CloudSentinel",
+        "scanner_version": "1.0.0",
+        "scan_timestamp": "2026-10-26T19:40:04.081349+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1"
+    },
+    "scan_time": "2026-10-26T19:40:04.081349+00:00",
+    "risk": {
+        "score": 11,
+        "risk_level": "MEDIUM"
+    },
+    "severity_summary": {
+        "CRITICAL": 0,
+        "HIGH": 1,
+        "MEDIUM": 1,
+        "LOW": 0
+    },
+    "inventory_summary": {
+        "s3_buckets": 0,
+        "security_groups": 1,
+        "iam_users": 1,
+        "ec2_instances": 0
+    },
+    "findings": [
+        {
+            "severity": "HIGH",
+            "rule": "IAM_USER_MFA_DISABLED",
+            "resource": "cloudsentinel-scanner",
+            "resource_type": "IAM User",
+            "resource_id": "cloudsentinel-scanner",
+            "category": "Identity & Access",
+            "message": "IAM user 'cloudsentinel-scanner' does not have MFA enabled.",
+            "why_it_matters": "MFA provides an additional authentication factor and reduces the risk of unauthorized access if credentials are compromised.",
+            "current_configuration": "MFA is not enabled for this IAM user.",
+            "remediation": "Enable MFA for the IAM user.",
+            "ml_prediction": "ANOMALY",
+            "ml_anomaly_score": 53.21,
+            "ml_risk": "MEDIUM",
+            "ml_decision_score": -0.0321
+        },
+        {
+            "severity": "MEDIUM",
+            "rule": "IAM_PASSWORD_POLICY_MISSING",
+            "resource": "AWS Account",
+            "resource_type": "IAM Account",
+            "resource_id": "AWS Account",
+            "category": "Identity & Access",
+            "message": "No custom IAM account password policy is configured.",
+            "why_it_matters": "Without an explicit password policy, password requirements are not centrally defined for IAM users.",
+            "current_configuration": "No custom IAM account password policy is configured.",
+            "remediation": "Configure an IAM password policy with appropriate complexity and rotation requirements."
+        }
+    ],
+    "ai": {
+        "enabled": false,
+        "executive_summary": null,
+        "prioritization": null
+    },
+    "iam_ml": {
+        "enabled": true,
+        "algorithm": "Random Forest",
+        "dataset": "AWS IAM Policy Configuration Profiles Dataset",
+        "results": [
+            {
+                "resource": "cloudsentinel-scanner",
+                "model": {
+                    "prediction": 1,
+                    "status": "MISCONFIGURED",
+                    "misconfiguration_probability": 53.43,
+                    "features": {
+                        "num_statements": 2,
+                        "num_allow": 2,
+                        "num_deny": 0,
+                        "has_wildcard_action": 0,
+                        "has_wildcard_resource": 1,
+                        "has_full_admin": 0,
+                        "has_public_principal": 0,
+                        "has_passrole_wildcard": 0,
+                        "priv_esc_action_count": 0,
+                        "has_mfa_condition": 0,
+                        "has_ip_condition": 0,
+                        "has_encryption_condition": 0,
+                        "num_conditions": 0,
+                        "uses_notaction": 0,
+                        "total_action_count": 1199,
+                        "cross_account_trust": 0,
+                        "mfa_enabled": 0,
+                        "access_key_age_days": 66,
+                        "is_prod": 0
+                    }
+                }
+            }
+        ]
+    }
+}

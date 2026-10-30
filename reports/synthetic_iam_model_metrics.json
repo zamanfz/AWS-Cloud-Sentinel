@@ -1,0 +1,73 @@
+{
+  "dataset": "C:\\Users\\zaman\\CloudSentinel\\data\\iam\\synthetic_iam_dataset.csv",
+  "dataset_rows": 2000,
+  "training_rows": 1600,
+  "testing_rows": 400,
+  "features": [
+    "num_statements",
+    "num_allow",
+    "num_deny",
+    "has_wildcard_action",
+    "has_wildcard_resource",
+    "has_full_admin",
+    "has_public_principal",
+    "has_passrole_wildcard",
+    "priv_esc_action_count",
+    "has_mfa_condition",
+    "has_ip_condition",
+    "has_encryption_condition",
+    "num_conditions",
+    "uses_notaction",
+    "total_action_count",
+    "cross_account_trust",
+    "mfa_enabled",
+    "access_key_age_days",
+    "is_prod"
+  ],
+  "accuracy": 0.9675,
+  "precision": 0.9459,
+  "recall": 0.9655,
+  "f1_score": 0.9556,
+  "confusion_matrix_labels": [
+    "NORMAL",
+    "MISCONFIGURED"
+  ],
+  "confusion_matrix": [
+    [
+      247,
+      8
+    ],
+    [
+      5,
+      140
+    ]
+  ],
+  "classification_report": {
+    "NORMAL": {
+      "precision": 0.9801587301587301,
+      "recall": 0.9686274509803922,
+      "f1-score": 0.9743589743589743,
+      "support": 255.0
+    },
+    "MISCONFIGURED": {
+      "precision": 0.9459459459459459,
+      "recall": 0.9655172413793104,
+      "f1-score": 0.9556313993174061,
+      "support": 145.0
+    },
+    "accuracy": 0.9675,
+    "macro avg": {
+      "precision": 0.963052338052338,
+      "recall": 0.9670723461798513,
+      "f1-score": 0.9649951868381903,
+      "support": 400.0
+    },
+    "weighted avg": {
+      "precision": 0.9677565958815958,
+      "recall": 0.9675,
+      "f1-score": 0.9675702284064058,
+      "support": 400.0
+    }
+  },
+  "label_definition": "Synthetic labels generated using a predefined risk-scoring rule."
+}

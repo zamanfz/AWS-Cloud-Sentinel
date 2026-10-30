@@ -1,0 +1,302 @@
+[
+    {
+        "scan_timestamp": "2026-10-26T19:40:04.081349+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T19:38:10.464843+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T19:19:57.389770+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T19:16:59.525954+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T19:13:23.424158+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T19:12:01.007261+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T19:09:52.920051+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T19:07:44.120951+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T19:03:16.903815+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T18:57:08.549472+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T18:54:21.768195+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T18:50:43.748032+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T18:48:16.199554+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T17:49:15.181679+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-26T17:42:58.117796+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-08T22:33:01.780277+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-08T22:21:01.328011+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-08T22:17:16.271513+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-08T22:10:38.400883+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    },
+    {
+        "scan_timestamp": "2026-10-08T22:06:46.767782+00:00",
+        "aws_account_id": "048715026943",
+        "aws_region": "ap-south-1",
+        "scanner_version": "1.0.0",
+        "risk_score": 11,
+        "risk_level": "MEDIUM",
+        "finding_count": 2,
+        "severity_summary": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+        }
+    }
+]
